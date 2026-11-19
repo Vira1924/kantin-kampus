@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Makanan - Kantin Kampus</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-body">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Kantin Kampus</h1>
+                    <span class="brand-tagline">Sistem Pemesanan Online</span>
+                </div>
+            </div>
+
+            <!-- Header Action Controls -->
+            <div class="nav-actions">
+                <!-- User Profile Pill -->
+                <div class="user-profile-badge">
+                    <span class="user-avatar" id="userAvatar">👩‍🎓</span>
+                    <div class="user-info">
+                        <span class="user-greeting-label">Selamat Datang,</span>
+                        <strong class="user-name" id="userGreeting">Mahasiswa</strong>
+                    </div>
+                </div>
+
+                <!-- Tombol Keranjang Belanja -->
+                <button type="button" class="btn-cart" id="btnOpenCart" title="Lihat Keranjang Belanja">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-text">Keranjang</span>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+
+                <!-- Tombol Logout -->
+                <button type="button" class="btn-logout" id="btnLogout" title="Keluar dari akun">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span class="logout-text">Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Welcome Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="badge-pill"><i class="fa-solid fa-fire"></i> Rekomendasi Menu Hari Ini</span>
+                <h2>Mau Makan Apa Hari Ini?</h2>
+                <p>Temukan santapan nikmat, bergizi, dan ramah kantong mahasiswa. Praktis, higienis, siap saji tanpa antri!</p>
+                <div class="hero-meta">
+                    <span class="meta-item"><i class="fa-regular fa-clock"></i> Buka: 07.30 - 17.00 WIB</span>
+                    <span class="meta-item"><i class="fa-solid fa-location-dot"></i> Kantin Pusat Gedung B</span>
+                    <span class="meta-item"><i class="fa-solid fa-shield-halved"></i> 100% Halal & Bersih</span>
+                </div>
+            </div>
+
+            <!-- Quick Search Box di Hero -->
+            <div class="search-box-card">
+                <div class="search-input-group">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Cari nasi goreng, ayam geprek, es teh..." 
+                        autocomplete="off">
+                    <button type="button" id="btnClearSearch" class="btn-clear-search" style="display: none;" title="Hapus pencarian">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontainer Kontrol Toolbar: Filter Sumber Data & Urutan -->
+    <div class="toolbar-section">
+        <div class="toolbar-container">
+            <!-- Pilihan Sumber Data (API Online vs Local JSON) -->
+            <div class="data-source-selector">
+                <span class="source-label"><i class="fa-solid fa-database"></i> Sumber Data:</span>
+                <div class="source-buttons">
+                    <button type="button" class="btn-source active" id="btnSourceApi" data-source="api">
+                        <i class="fa-solid fa-cloud"></i> 🌐 API Online (DummyJSON)
+                    </button>
+                    <button type="button" class="btn-source" id="btnSourceLocal" data-source="local">
+                        <i class="fa-solid fa-folder-open"></i> 📂 Menu Kantin (menu.json)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pengurutan (Sorting) -->
+            <div class="sort-wrapper">
+                <label for="sortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Urutkan:</label>
+                <select id="sortSelect" class="sort-select">
+                    <option value="default">Default (Rekomendasi)</option>
+                    <option value="price-low">Harga: Termurah</option>
+                    <option value="price-high">Harga: Tertinggi</option>
+                    <option value="rating">Rating Tertinggi ⭐</option>
+                    <option value="name-asc">Nama (A - Z)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar & Content -->
+    <div class="layout-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-header">
+                    <h3><i class="fa-solid fa-list-check"></i> Kategori Menu</h3>
+                </div>
+
+                <nav class="category-list">
+                    <button type="button" class="cat-btn active" data-category="all">
+                        <span class="cat-icon">🍽️</span>
+                        <span class="cat-label">Semua Menu</span>
+                        <span class="cat-badge" id="countAll">0</span>
+                    </button>
+                    <button type="button" class="cat-btn" data-category="Makanan">
+                        <span class="cat-icon">🍗</span>
+                        <span class="cat-label">Makanan</span>
+                        <span class="cat-badge" id="countMakanan">0</span>
+                    </button>
+                    <button type="button" class="cat-btn" data-category="Minuman">
+                        <span class="cat-icon">🥤</span>
+                        <span class="cat-label">Minuman</span>
+                        <span class="cat-badge" id="countMinuman">0</span>
+                    </button>
+                    <button type="button" class="cat-btn" data-category="Snack">
+                        <span class="cat-icon">🍪</span>
+                        <span class="cat-label">Snack & Cemilan</span>
+                        <span class="cat-badge" id="countSnack">0</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Kantin Info Card -->
+            <div class="info-card">
+                <h4><i class="fa-solid fa-credit-card"></i> Pembayaran Fleksibel</h4>
+                <p>Menerima QRIS (Semua Bank/E-Wallet), Tunai di Kasir, dan Saldo Mahasiswa.</p>
+                <div class="payment-badges">
+                    <span class="pay-badge">QRIS</span>
+                    <span class="pay-badge">GOPAY</span>
+                    <span class="pay-badge">OVO</span>
+                    <span class="pay-badge">CASH</span>
+                </div>
+            </div>
+
+            <!-- Bantuan / Kontak -->
+            <div class="help-card">
+                <i class="fa-solid fa-headset help-icon"></i>
+                <div class="help-text">
+                    <h5>Butuh Bantuan?</h5>
+                    <p>Hubungi admin kantin jika pesanan belum siap.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="content-area">
+            
+            <div class="content-header">
+                <div>
+                    <h2 id="sectionTitle">Semua Menu Makanan & Minuman</h2>
+                    <p class="section-subtitle" id="sectionSubtitle">Memuat menu makanan terbaik untuk Anda...</p>
+                </div>
+                <div class="menu-count-badge" id="resultCountBadge">
+                    0 menu tersedia
+                </div>
+            </div>
+
+            <!-- DAFTAR MENU GRID -->
+            <div id="daftarMenu" class="menu-grid">
+                <!-- Data menu dari API / JSON dirender secara dinamis oleh api.js -->
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Sedang memuat data menu dari API...</p>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- MODAL DETAIL MENU -->
+    <div id="modalDetail" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog">
+            <button type="button" class="modal-close" id="btnCloseDetailModal" title="Tutup">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-content" id="modalDetailContent">
+                <!-- Konten modal diisi secara dinamis oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KERANJANG BELANJA & CHECKOUT -->
+    <div id="modalCart" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog modal-dialog-cart">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-bag-shopping"></i> Keranjang Pesanan</h3>
+                <button type="button" class="modal-close" id="btnCloseCartModal" title="Tutup">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="cart-body">
+                <!-- Daftar Item Keranjang -->
+                <div id="cartItemsList" class="cart-items-container">
+                    <!-- Diisi via JS -->
+                </div>
+
+                <!-- Catatan Tambahan -->
+                <div class="order-notes-wrapper">
+                    <label for="orderNote"><i class="fa-regular fa-note-sticky"></i> Catatan Pesanan (opsional):</label>
+                    <textarea id="orderNote" placeholder="Contoh: Sambal dipisah, es teh sedikit manis, dll." rows="2"></textarea>
+                </div>
+
+                <!-- Ringkasan Biaya -->
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal Makanan</span>
+                        <strong id="cartSubtotal">Rp 0</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Biaya Layanan Kantin</span>
+                        <strong class="text-free">GRATIS</strong>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row total-row">
+                        <span>Total Pembayaran</span>
+                        <strong id="cartTotal" class="total-price">Rp 0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-footer">
+                <button type="button" class="btn-clear-cart" id="btnClearCart">
+                    <i class="fa-solid fa-trash-can"></i> Kosongkan
+                </button>
+                <button type="button" class="btn-checkout" id="btnCheckout">
+                    <i class="fa-solid fa-paper-plane"></i> Proses Pesanan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL STRUK / NOTA PESANAN (SIMULASI CHECKOUT) -->
+    <div id="modalReceipt" class="modal-backdrop" style="display: none;">
+        <div class="modal-dialog modal-receipt-dialog">
+            <div class="receipt-header">
+                <div class="receipt-check-icon"><i class="fa-solid fa-check"></i></div>
+                <h3>Pesanan Berhasil Dibuat!</h3>
+                <p>Silakan tunjukkan struk digital ini ke kasir kantin untuk pengambilan.</p>
+            </div>
+            <div id="receiptDetails" class="receipt-body">
+                <!-- Diisi via JS -->
+            </div>
+            <div class="receipt-footer">
+                <button type="button" class="btn-submit" id="btnCloseReceipt">
+                    <i class="fa-solid fa-check-double"></i> Selesai & Kembali ke Menu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-utensils"></i> Kantin Kampus
+                </div>
+                <p>Aplikasi web interaktif pemesanan menu kantin berbasis HTML5, CSS3, JavaScript Modern (ES6+), dan integrasi REST API.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kantin Kampus Digital • Tugas Pemrograman Web Semester 5</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & API -->
+    <script src="api.js"></script>
+
+</body>
+</html>

@@ -87,17 +87,4 @@ Gunakan akun demo berikut untuk masuk ke sistem:
 - **Password**: `12345`
 *(Tersedia tombol auto-fill di halaman login untuk kemudahan penilaian)*
 
----
-
-## 🚀 Cara Menjalankan Aplikasi Secara Lokal
-
-1. Clone repositori ini ke komputer Anda:
-   ```bash
-   git clone https://github.com/USERNAME-KAMU/NAMA-REPO-KAMU.git
-   ```
-2. Buka folder proyek.
-3. Klik ganda file `index.html` untuk membuka langsung di browser (Chrome, Edge, Firefox), atau gunakan ekstensi **Live Server** di VS Code.
-
----
-
 &copy; 2026 Kantin Kampus Digital • Tugas Pemrograman Web Semester 5

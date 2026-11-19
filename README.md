@@ -4,12 +4,10 @@
 
 ---
 
-## 👨‍🎓 Informasi Mahasiswa & Tugas
+## 📋 Informasi Tugas
 - **Mata Kuliah**: Pemrograman Web
 - **Semester**: 5
 - **Topik Tugas**: Penerapan HTML, CSS, JavaScript, dan Integrasi API
-- **Nama Mahasiswa**: *(Silakan isi Nama Anda)*
-- **NIM**: *(Silakan isi NIM Anda)*
 
 ---
 

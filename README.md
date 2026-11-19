@@ -19,30 +19,35 @@ Berikut adalah dokumentasi tangkapan layar (*screenshot*) antarmuka aplikasi Kan
 
 ### 1. Halaman Login Mahasiswa
 Tampilan awal otentikasi pengguna dengan fitur intip password, validasi interaktif, dan tombol auto-fill akun demo.
+
 ![Halaman Login](screenshots/01-login.png)
 
 ---
 
 ### 2. Halaman Utama Katalog Menu
 Tampilan daftar menu makanan dan minuman dengan desain grid modern, hero banner sapaan personal, dan badge informasi.
+
 ![Katalog Menu](screenshots/02-menu-katalog.png)
 
 ---
 
 ### 3. Fitur Filter Kategori, Live Search, & Data Switcher
 Penyaringan menu berdasarkan kategori (*Semua, Makanan, Minuman, Snack*), pencarian cepat real-time, pengurutan harga/rating, serta switcher sumber data (API Online vs Menu Lokal).
+
 ![Filter dan Pencarian](screenshots/03-filter-search.png)
 
 ---
 
 ### 4. Modal Detail Resep & Bahan Baku (Integrasi Data API)
 Pop-up interaktif yang menampilkan komposisi bahan (*ingredients*), kalori, asal kuliner (*cuisine*), dan estimasi waktu masak yang diambil langsung dari data API.
+
 ![Modal Detail Resep](screenshots/04-modal-detail.png)
 
 ---
 
 ### 5. Keranjang Belanja & Struk Antrean Digital (Checkout)
 Drawer keranjang pesanan dengan kontrol kuantitas (+ / -), kalkulasi subtotal dan total otomatis, catatan khusus, serta nota antrean digital setelah proses pemesanan.
+
 ![Keranjang dan Struk](screenshots/05-keranjang-struk.png)
 
 ---
